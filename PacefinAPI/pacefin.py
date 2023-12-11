@@ -81,6 +81,11 @@ class Pacefin(object):
         # funds
         "api.funds1": "/api/v1/funds/view?client_id={ClientId}&type=all",
         "api.funds2": "/api/v2/funds/view?client_id={ClientId}&type=all",
+        
+        # market data
+        "api.marketdata": "/api/v1/marketdata/{exchange}/{token}",
+        "api.DPRdata": "/api/v1/dprdata/{exchange}/{token}",
+        "api.greekdata": "/api/v1/greekdata/{exchange}/{token}",
 
     }
 
@@ -169,6 +174,7 @@ class Pacefin(object):
        
         uri =self._routes[route].format(**params)
         url = urljoin(self.root, uri)
+        print(url)
 
         # Custom headers
         headers = self.requestHeaders()
@@ -208,7 +214,7 @@ class Pacefin(object):
             except ValueError:
                 raise ex.DataException("Couldn't parse the JSON response received from the server: {content}".format(
                     content=r.content))
-
+            
             # api error
             if data.get("error_type"):
                 # Call session hook if its registered and TokenException is raised
@@ -534,4 +540,24 @@ class Pacefin(object):
         """Get Funds."""
         data = self._getRequest("api.funds1",{"ClientId":client_id})
         return data
+
+
+    def getMarketdata(self,exchange,token):
+        """Get market data."""
+        data = self._getRequest("api.marketdata",{"exchange":exchange,"token":token})
+        return data
+
+    def getDPRdata(self,exchange,token):
+        """Get DPR data."""
+        data = self._getRequest("api.DPRdata",{"exchange":exchange,"token":token})
+        return data
+    
+
+    def greekdata(self,exchange,token):
+        """Get greek data."""
+        data = self._getRequest("api.greekdata",{"exchange":exchange,"token":token})
+        return data
+
+
+    
 
