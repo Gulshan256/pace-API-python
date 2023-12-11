@@ -109,9 +109,12 @@ if __name__ == '__main__':
     # data=obj.getFunds(clintId)
     # print(data)
 
-    data=obj.getMarketdata("NFO","10666")
-    print(data)
+    # data=obj.getMarketdata("NFO","10666")
+    # print(data)
 
+    #  websocket implementation
+    ws=obj.connectSocket(setAccessToken)
+    print("ws connection")
 
 
 

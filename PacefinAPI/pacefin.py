@@ -7,6 +7,7 @@ import re, uuid
 import socket
 import PacefinAPI.pacefin_exceptions as ex
 import sys
+import websocket
 
 
 log=logging.getLogger(__name__)
@@ -254,6 +255,7 @@ class Pacefin(object):
     def setAccessToken(self, access_token):
         """Set the `access_token` received after a successful authentication."""
         self.access_token = access_token
+        return self.access_token
     
     
 
@@ -557,6 +559,41 @@ class Pacefin(object):
         """Get greek data."""
         data = self._getRequest("api.greekdata",{"exchange":exchange,"token":token})
         return data
+
+
+
+
+
+    #  webSocket Implemantations    
+
+    def connectSocket(self,token):
+        
+        ws_url = "wss://pacetrader.pacefin.in?Authorization={token}".format(token=token)
+        print(ws_url)
+        # # Exchange codes
+        exchange_codes = {'NSE': 1, 'NFO': 2, 'CDS': 3, 'MCX': 4, 'BSE': 6}
+
+        # Subscribe to quotes for SBIN-EQ
+        subscribe_message = {'a': 'subscribe', 'v': [[exchange_codes['NSE'], 3045]], 'm': 'compact_marketdata'}
+
+        # Convert the message to a JSON string
+        message_str = json.dumps(subscribe_message)
+
+        # Create a WebSocket connection
+        ws = websocket.create_connection(ws_url)
+
+        # Send the request
+        ws.send(message_str)
+
+        # Close the WebSocket connection when done
+        ws.close()
+    
+        
+
+    def run_socket(self):
+        """Run the socket."""
+        pass
+        
 
 
     
