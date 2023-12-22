@@ -1,237 +1,222 @@
-import websocket
-import threading
+import requests
 import json
+from threading import Thread 
+from wsclient import socket_connect, get_compact_marketdata, get_detailed_marketdata, get_snapquotedata, send_message, get_ws_connection_status, unsubscribe_update, get_order_update, get_multiple_detailed_marketdata, get_multiple_compact_marketdata, get_multiple_snapquotedata
+import sys
 import time
-from struct import pack_into
-import ctypes, struct
-from packetDecoder import decodeDetailedMarketData, decodeCompactMarketData, decodeSnapquoteData, decodeOrderUpdate
 
-login_id = ""
-access_token = ""
-payload = {}
-websock = {}
-ws_connected = False
-compact_marketdata_response = {}
-detailed_marketdata_response = {}
-snapquote_marketdata_response = {}
-order_update_response = {}
-dtlmktdata_dict = {}
-cmptmktdata_dict = {}
-snpqtdata_dict = {}
+# cli = sys.modules['flask.cli']
+# cli.show_server_banner = lambda *x: None
+class PacefinSocket(object):
+    base_url = "https://pacetrader.pacefin.in"
+    
+    def __init__(self, client_id,access_token):
+        self.headers = {'Content-type': 'application/json'}
+        self.access_token = access_token
+        self.login_id = ""
+        self.base_url=self.base_url
+        self.client_id = client_id
+        url = ""
+        if "https" in self.base_url:
+            url = self.base_url.replace("https", "wss")
+        else:
+            url = self.base_url.replace("http", "ws")
+        self.websocket_url = url
 
-def get_detailed_marketdata():
-    return detailed_marketdata_response
+    # def get_access_token(self):
+    #     base_url = self.base_url
+    #     client_id = self.client_id
+    #     client_secret = self.client_secret
+    #     redirect_url = self.redirect_url
+    #     server = Server(client_id, client_secret, redirect_url, base_url)
+    #     app = server.create_app()
+    #     app.env = 'development'
+    #     print('Open this url in browser:', 'http://127.0.0.1:' + str(self.port) + '/getcode', end='\n\n')
+    #     app.run(host='127.0.0.1', debug=False, port=self.port)
+    #     access_token = server.fetch_access_token()
+    #     self.access_token = access_token
+    #     return server.fetch_access_token()
 
-def get_compact_marketdata():
-    return compact_marketdata_response
+    def print_access_token(self):
+        return self.access_token
 
-def get_snapquotedata():
-    return snapquote_marketdata_response
+    def set_access_token(self, access_token):
+        self.access_token = access_token
 
-def get_multiple_detailed_marketdata():
-    return dtlmktdata_dict
+    def get_request(self, url, params):
+        headers = self.headers
+        headers['Authorization'] = f'Bearer {self.access_token}'
+        res = requests.get(f'{self.base_url}{url}' , params=params, headers=headers)
+        return res.json()
 
-def get_multiple_compact_marketdata():
-    return cmptmktdata_dict
+    def post_request(self, url, data):
+        headers = self.headers
+        headers['Authorization'] = f'Bearer {self.access_token}'
+        res = requests.post(f'{self.base_url}{url}', headers=headers, data=json.dumps(data))
+        print(res)
+        return res.json()
 
-def get_multiple_snapquotedata():
-    return snpqtdata_dict
+    def put_request(self, url, data):
+        headers = self.headers
+        headers['Authorization'] = f'Bearer {self.access_token}'
+        res = requests.put(f'{self.base_url}{url}', headers=headers, data=json.dumps(data))
+        print(res)
+        return res.json()
 
-def get_order_update():
-    return order_update_response
+    def delete_request(self, url, params):
+        headers = self.headers
+        headers['Authorization'] = f'Bearer {self.access_token}'
+        res = requests.delete(f'{self.base_url}{url}' , params=params, headers=headers)
+        return res.json()
 
-def get_ws_connection_status():
-    return ws_connected
+    
 
-def heartbeat_thread(clientSocket):
-    while clientSocket:
-        send_data = '{"a": "h", "v": [], "m": ""}'
-        try:
-            clientSocket.send(send_data)
-        except Exception as e:
-            print(e)
-            print("HEARTBEAT [ERROR]: [BLITZ_HYDRA_STREAM] Connection closed.")
-            break
-        print("Sent Heart-Beat to Exchange")
-        time.sleep(8)
+    def run_socket(self):
+        client_id = self.client_id
+        access_token = self.access_token
+        websocket_url = self.websocket_url
+        print(websocket_url)
+        th_websocket = Thread(target=socket_connect, args=(client_id, access_token, websocket_url,))
+        th_websocket.start()
+        counter = 0
+        while True:
+            status = get_ws_connection_status()
+            if status == True:
+                return True
+            time.sleep(1)
+            counter = counter + 1
+            if counter > 5:
+                return False
+        # socket_connect(client_id, access_token, websocket_url)
+
+    def subscribe_detailed_marketdata(self, detailedmarketdata_payload):
+        subscription_pkt = [[detailedmarketdata_payload['exchangeCode'], detailedmarketdata_payload['instrumentToken']]]
+        th_detailed_marketdata = Thread(target=send_message, args=('DetailedMarketDataMessage', subscription_pkt))
+        th_detailed_marketdata.start()
+
+    def read_detailed_marketdata(self):
+        data = get_detailed_marketdata()
+        return data
+
+    def unsubscribe_detailed_marketdata(self, detailedmarketdata_payload):
+        unsubscription_pkt = [[detailedmarketdata_payload['exchangeCode'], detailedmarketdata_payload['instrumentToken']]]
+        th_detailed_marketdata = Thread(target=unsubscribe_update, args=('DetailedMarketDataMessage', unsubscription_pkt))
+        th_detailed_marketdata.start()
+
+    def subscribe_compact_marketdata(self, compactmarketdata_payload):
+        subscription_pkt = [[compactmarketdata_payload['exchangeCode'], compactmarketdata_payload['instrumentToken']]]
+        th_compact_marketdata = Thread(target=send_message, args=('CompactMarketDataMessage', subscription_pkt))
+        th_compact_marketdata.start()
+
+    def unsubscribe_compact_marketdata(self, compactmarketdata_payload):
+        unsubscription_pkt = [[compactmarketdata_payload['exchangeCode'], compactmarketdata_payload['instrumentToken']]]
+        th_compact_marketdata = Thread(target=unsubscribe_update, args=('CompactMarketDataMessage', unsubscription_pkt))
+        th_compact_marketdata.start()
+    
+    def read_compact_marketdata(self):
+        data = get_compact_marketdata()
+        return data
+
+    def subscribe_snapquote_data(self, snapquotedata_payload):
+        subscription_pkt = [[snapquotedata_payload['exchangeCode'], snapquotedata_payload['instrumentToken']]]
+        th_snapquote = Thread(target=send_message, args=('SnapquoteDataMessage', subscription_pkt))
+        th_snapquote.start()
+    
+    def unsubscribe_snapquote_data(self, snapquotedata_payload):
+        unsubscription_pkt = [[snapquotedata_payload['exchangeCode'], snapquotedata_payload['instrumentToken']]]
+        th_snapquote = Thread(target=unsubscribe_update, args=('SnapquoteDataMessage', unsubscription_pkt))
+        th_snapquote.start()
+
+    def read_snapquote_data(self):
+        data = get_snapquotedata()
+        return data
+
+    def subscribe_order_update(self, orderupdate_payload):
+        subscription_pkt = [orderupdate_payload['client_id'], "web"]
+        th_order_update = Thread(target=send_message, args=('OrderUpdateMessage', subscription_pkt))
+        th_order_update.start()
+    
+    def unsubscribe_order_update(self, orderupdate_payload):
+        unsubscription_pkt = [orderupdate_payload['client_id'], "web"]
+        th_order_update = Thread(target=unsubscribe_update, args=('OrderUpdateMessage', unsubscription_pkt))
+        th_order_update.start()
+
+    def read_order_update_data(self):
+        data = get_order_update()
+        return data
+
+    def subscribe_multiple_detailed_marketdata(self, detailedmarketdata_payload):
+        subscription_pkt = []
+        for payload in detailedmarketdata_payload:
+            pkt = [payload['exchangeCode'], payload['instrumentToken']]
+            subscription_pkt.append(pkt)
+        th_detailed_marketdata = Thread(target=send_message, args=('DetailedMarketDataMessage', subscription_pkt))
+        th_detailed_marketdata.start()
+
+    def unsubscribe_multiple_detailed_marketdata(self, detailedmarketdata_payload):
+        unsubscription_pkt = []
+        for payload in detailedmarketdata_payload:
+            pkt = [payload['exchangeCode'], payload['instrumentToken']]
+            unsubscription_pkt.append(pkt)
+        th_detailed_marketdata = Thread(target=unsubscribe_update, args=('DetailedMarketDataMessage', unsubscription_pkt))
+        th_detailed_marketdata.start()
+
+    def read_multiple_detailed_marketdata(self):
+        data = get_multiple_detailed_marketdata()
+        return data
+
+    def subscribe_multiple_compact_marketdata(self, compactmarketdata_payload):
+        subscription_pkt = []
+        for payload in compactmarketdata_payload:
+            pkt = [payload['exchangeCode'], payload['instrumentToken']]
+            subscription_pkt.append(pkt)
+        th_compact_marketdata = Thread(target=send_message, args=('CompactMarketDataMessage', subscription_pkt))
+        th_compact_marketdata.start()
+
+    def unsubscribe_multiple_compact_marketdata(self, compactmarketdata_payload):
+        unsubscription_pkt = []
+        for payload in compactmarketdata_payload:
+            pkt = [payload['exchangeCode'], payload['instrumentToken']]
+            unsubscription_pkt.append(pkt)
+        th_compact_marketdata = Thread(target=unsubscribe_update, args=('CompactMarketDataMessage', unsubscription_pkt))
+        th_compact_marketdata.start()
+
+    def read_multiple_compact_marketdata(self):
+        data = get_multiple_compact_marketdata()
+        return data
+
+    def subscribe_multiple_snapquote_data(self, snapquotedata_payload):
+        subscription_pkt = []
+        for payload in snapquotedata_payload:
+            pkt = [payload['exchangeCode'], payload['instrumentToken']]
+            subscription_pkt.append(pkt)
+        th_snapquotetdata = Thread(target=send_message, args=('SnapquoteDataMessage', subscription_pkt))
+        th_snapquotetdata.start()
+
+    def unsubscribe_multiple_snapquote_data(self, snapquotedata_payload):
+        unsubscription_pkt = []
+        for payload in snapquotedata_payload:
+            pkt = [payload['exchangeCode'], payload['instrumentToken']]
+            unsubscription_pkt.append(pkt)
+        th_snapquotetdata = Thread(target=unsubscribe_update, args=('SnapquoteDataMessage', unsubscription_pkt))
+        th_snapquotetdata.start()
+
+    def read_multiple_snapquote_data(self):
+        data = get_multiple_snapquotedata()
+        return data
 
 
-def on_message(ws, message):
-    mode = struct.unpack('>b', message[0:1])[0]
-    if mode == 1:
-        res = decodeDetailedMarketData(message)
-        # print("detailed market data")
-        # print(res)
-        global detailed_marketdata_response
-        global dtlmktdata_dict
-        detailed_marketdata_response = res
-        if bool(res):
-            key = str(res["instrument_token"]) + "_" + str(res["exchange_code"])
-            # print(key)
-            dtlmktdata_dict[key] = res 
-    elif mode == 2:
-        res = decodeCompactMarketData(message)
-        global compact_marketdata_response
-        global cmptmktdata_dict
-        compact_marketdata_response = res
-        if bool(res):
-            key = str(res["instrument_token"]) + "_" + str(res["exchange_code"])
-            # print(key)
-            cmptmktdata_dict[key] = res 
-    elif mode == 4:
-        res = decodeSnapquoteData(message)
-        # print("snap quote data")
-        # print(res)
-        global snapquote_marketdata_response
-        global snpqtdata_dict
-        snapquote_marketdata_response = res
-        if bool(res):
-            key = str(res["instrument_token"]) + "_" + str(res["exchange_code"])
-            # print(key)
-            snpqtdata_dict[key] = res 
-    elif mode == 50:
-        res = decodeOrderUpdate(message)
-        global order_update_response
-        order_update_response = res
+#------------------------------------------------
+#For testing
+#------------------------------------------------
+#
+#
+if __name__ == "__main__":
+    client_id = "HI0009"
 
-def on_error(ws, error):
-    print(error)
-    global ws_connected
-    ws_connected = False
-
-
-def on_close(ws):
-    print("### closed ###")
-    global ws_connected
-    ws_connected = False
-
-
-def on_open(ws):
-
-    hbThread = threading.Thread(target=heartbeat_thread, args=(ws,))
-    hbThread.start()
-    global ws_connected
-    ws_connected = True
-
-    # hbThread1 = threading.Thread(target=send_message, args=(ws,))
-    # hbThread1.start()
-
-def unsubscribe_update(message_type, payload):
-    global websock
-    clientSocket = websock
-    if message_type == "DetailedMarketDataMessage":
-        sub_packet = {
-            "a": "unsubscribe",
-            "v": payload,
-            "m": "marketdata"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-        global detailed_marketdata_response
-        global dtlmktdata_dict
-        detailed_marketdata_response = {}
-        dtlmktdata_dict = {}
-    elif message_type == "CompactMarketDataMessage":
-        sub_packet = {
-            "a": "unsubscribe",
-            "v": payload,
-            "m": "compact_marketdata"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-        global compact_marketdata_response
-        global cmptmktdata_dict
-        compact_marketdata_response = {}
-        cmptmktdata_dict = {}
-    elif message_type == "SnapquoteDataMessage":
-        sub_packet = {
-            "a": "unsubscribe",
-            "v": payload,
-            "m": "full_snapquote"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-        global snapquote_marketdata_response
-        global snpqtdata_dict
-        snapquote_marketdata_response = {}
-        snpqtdata_dict = {}
-
-def send_message(message_type, payload):
-    # print(message_type)
-    global websock
-    clientSocket = websock
-    print(clientSocket)
-    if message_type == "DetailedMarketDataMessage":
-        sub_packet = {
-            "a": "subscribe",
-            "v": payload,
-            "m": "marketdata"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-    elif message_type == "CompactMarketDataMessage":
-        sub_packet = {
-            "a": "subscribe",
-            "v": payload,
-            "m": "compact_marketdata"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-    elif message_type == "SnapquoteDataMessage":
-        sub_packet = {
-            "a": "subscribe",
-            "v": payload,
-            "m": "full_snapquote"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-    elif message_type == "TbtSnapquoteDataMessage":
-        sub_packet = {
-            "a": "subscribe",
-            "v": payload,
-            "m": "tbt_full_snapquote"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-    elif message_type == "OrderUpdateMessage":
-        sub_packet = {
-            "a": "subscribe",
-            "v": payload,
-            "m": "updates"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-    elif message_type == "TradeUpdate": 
-        sub_packet = {
-            "a": "subscribe",
-            "v": payload,
-            "m": "updates"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-    elif message_type == "ExchangeMessage": 
-        sub_packet = {
-            "a": "subscribe",
-            "v": payload,
-            "m": "exchange_messages"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-    elif message_type == "PositionUpdate":
-        sub_packet = {
-            "a": "subscribe",
-            "v": payload,
-            "m": "position_updates"
-        }
-        clientSocket.send(json.dumps(sub_packet))
-
-def connect(base_url):
-    websocket.enableTrace(False)
-    ws = websocket.WebSocketApp(f"{base_url}",
-                                on_message=on_message,
-                                on_error=on_error,
-                                on_close=on_close)
-    ws.on_open = on_open
-    return ws
-
-def webs_start(ws):
-    ws.run_forever()
-
-def socket_connect(client_id, token, websocket_url):
-
-    global websock
-    websock = connect(f'{websocket_url}/ws/v1/feeds?login_id={client_id}&access_token={token}')
-    # print(message_type)
-    hbThread2 = threading.Thread(target=webs_start, args=(websock,))
-    hbThread2.run()
-    hbThread2.isAlive()
+    
+    conn = PacefinSocket(client_id)
+    with open("access_token.txt", "r") as f:
+        access_token = f.read()
+    access_token = conn.set_access_token(access_token)
+    conn.run_socket()

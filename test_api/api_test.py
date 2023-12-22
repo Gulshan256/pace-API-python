@@ -4,9 +4,16 @@ from PacefinAPI.pacefin import Pacefin
 from config import *
 if __name__ == '__main__':
     obj=Pacefin()
-    data=obj.generateSession(clintId,password,"123456") #totp is otp 
-    setAccessToken=obj.setAccessToken(data["data"]["auth_token"])
+    # data=obj.generateSession(clintId,password,"123456") #totp is otp 
+    # setAccessToken=obj.setAccessToken(data["data"]["auth_token"])
 
+    # #  write auth token in token file
+    # with open("token.txt","w") as f:
+    #     f.write(data["data"]["auth_token"])
+    #  read auth token from token file
+    with open("token.txt","r") as f:
+        token=f.read()
+        setAccessToken=obj.setAccessToken(token)
     # data=obj.getProfile(clintId)
     # print(data)
    
@@ -109,12 +116,17 @@ if __name__ == '__main__':
     # data=obj.getFunds(clintId)
     # print(data)
 
-    # data=obj.getMarketdata("NFO","10666")
+    # data=obj.getMarketdata("NSE","3045")   
+    # print(data)
+    
+    # data=obj.getLtp("NSE","3045")
     # print(data)
 
-    #  websocket implementation
-    ws=obj.connectSocket(setAccessToken)
-    print("ws connection")
+    # data=obj.getClosePrice("NSE","3045")
+    # print(data)
+
+    # #  websocket implementation
+    # ws=obj.connectSocket(token)
 
 
 

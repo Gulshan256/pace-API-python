@@ -1,4 +1,5 @@
 env
+PacefinAPI/websocket
 
 test_api/config.py
 other

@@ -84,9 +84,11 @@ class Pacefin(object):
         "api.funds2": "/api/v2/funds/view?client_id={ClientId}&type=all",
         
         # market data
-        "api.marketdata": "/api/v1/marketdata/{exchange}/{token}",
-        "api.DPRdata": "/api/v1/dprdata/{exchange}/{token}",
-        "api.greekdata": "/api/v1/greekdata/{exchange}/{token}",
+        "api.marketdata": "/api/v1/marketdata/{exchange}/Capital?token={token}",
+        "api.ltpdata": "/api/v1/marketdata/{exchange}/Capital?token={token}&key=last_trade_price",
+        "api.close_price": "/api/v1/marketdata/{exchange}/Capital?token={token}&key=close_price",
+        # "api.DPRdata": "/api/v1/dprdata/{exchange}/Capital?token={token}",
+        # "api.greekdata": "/api/v1/greekdata/Capital?token={token}",
 
     }
 
@@ -548,6 +550,16 @@ class Pacefin(object):
         """Get market data."""
         data = self._getRequest("api.marketdata",{"exchange":exchange,"token":token})
         return data
+    
+    def getLtp(self,exchange,token):
+        """Get LTP data."""
+        data = self._getRequest("api.ltpdata",{"exchange":exchange,"token":token})
+        return data
+
+    def getClosePrice(self,exchange,token):
+        """Get Close Price data."""
+        data = self._getRequest("api.close_price",{"exchange":exchange,"token":token})
+        return data
 
     def getDPRdata(self,exchange,token):
         """Get DPR data."""
@@ -559,42 +571,3 @@ class Pacefin(object):
         """Get greek data."""
         data = self._getRequest("api.greekdata",{"exchange":exchange,"token":token})
         return data
-
-
-
-
-
-    #  webSocket Implemantations    
-
-    def connectSocket(self,token):
-        
-        ws_url = "wss://pacetrader.pacefin.in?Authorization={token}".format(token=token)
-        print(ws_url)
-        # # Exchange codes
-        exchange_codes = {'NSE': 1, 'NFO': 2, 'CDS': 3, 'MCX': 4, 'BSE': 6}
-
-        # Subscribe to quotes for SBIN-EQ
-        subscribe_message = {'a': 'subscribe', 'v': [[exchange_codes['NSE'], 3045]], 'm': 'compact_marketdata'}
-
-        # Convert the message to a JSON string
-        message_str = json.dumps(subscribe_message)
-
-        # Create a WebSocket connection
-        ws = websocket.create_connection(ws_url)
-
-        # Send the request
-        ws.send(message_str)
-
-        # Close the WebSocket connection when done
-        ws.close()
-    
-        
-
-    def run_socket(self):
-        """Run the socket."""
-        pass
-        
-
-
-    
-
