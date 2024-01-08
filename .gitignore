@@ -5,3 +5,6 @@ test_api/config.py
 other
 test
 strategy/stradel
+token.txt
+socket-test
+strategy-old

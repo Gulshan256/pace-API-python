@@ -1,0 +1,473 @@
+{
+    "error": {
+        "code": 0,
+        "message": ""
+    },
+    "result": [
+        {
+            "expiry_date": "25JAN24",
+            "strikes": [
+                {
+                    "strike_price": 630,
+                    "call_option": {
+                        "token": "167150",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN630CE",
+                        "trading_symbol": "SBIN24JAN630CE",
+                        "display_name": "SBIN JAN 24 630 CE",
+                        "strike_price": 630,
+                        "ExpiryRaw": "",
+                        "close_price": "27.4000000"
+                    },
+                    "put_option": {
+                        "token": "167151",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN630PE",
+                        "trading_symbol": "SBIN24JAN630PE",
+                        "display_name": "SBIN JAN 24 630 PE",
+                        "strike_price": 630,
+                        "ExpiryRaw": "",
+                        "close_price": "11.0500000"
+                    }
+                },
+                {
+                    "strike_price": 635,
+                    "call_option": {
+                        "token": "167152",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN635CE",
+                        "trading_symbol": "SBIN24JAN635CE",
+                        "display_name": "SBIN JAN 24 635 CE",
+                        "strike_price": 635,
+                        "ExpiryRaw": "",
+                        "close_price": "23.8000000"
+                    },
+                    "put_option": {
+                        "token": "167153",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN635PE",
+                        "trading_symbol": "SBIN24JAN635PE",
+                        "display_name": "SBIN JAN 24 635 PE",
+                        "strike_price": 635,
+                        "ExpiryRaw": "",
+                        "close_price": "13.2000000"
+                    }
+                },
+                {
+                    "strike_price": 640,
+                    "call_option": {
+                        "token": "167154",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN640CE",
+                        "trading_symbol": "SBIN24JAN640CE",
+                        "display_name": "SBIN JAN 24 640 CE",
+                        "strike_price": 640,
+                        "ExpiryRaw": "",
+                        "close_price": "21.7000000"
+                    },
+                    "put_option": {
+                        "token": "167155",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN640PE",
+                        "trading_symbol": "SBIN24JAN640PE",
+                        "display_name": "SBIN JAN 24 640 PE",
+                        "strike_price": 640,
+                        "ExpiryRaw": "",
+                        "close_price": "15.2000000"
+                    }
+                },
+                {
+                    "strike_price": 645,
+                    "call_option": {
+                        "token": "167156",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN645CE",
+                        "trading_symbol": "SBIN24JAN645CE",
+                        "display_name": "SBIN JAN 24 645 CE",
+                        "strike_price": 645,
+                        "ExpiryRaw": "",
+                        "close_price": "19.4000000"
+                    },
+                    "put_option": {
+                        "token": "167161",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN645PE",
+                        "trading_symbol": "SBIN24JAN645PE",
+                        "display_name": "SBIN JAN 24 645 PE",
+                        "strike_price": 645,
+                        "ExpiryRaw": "",
+                        "close_price": "17.6500000"
+                    }
+                },
+                {
+                    "strike_price": 650,
+                    "call_option": {
+                        "token": "167162",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN650CE",
+                        "trading_symbol": "SBIN24JAN650CE",
+                        "display_name": "SBIN JAN 24 650 CE",
+                        "strike_price": 650,
+                        "ExpiryRaw": "",
+                        "close_price": "17.2000000"
+                    },
+                    "put_option": {
+                        "token": "167163",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN650PE",
+                        "trading_symbol": "SBIN24JAN650PE",
+                        "display_name": "SBIN JAN 24 650 PE",
+                        "strike_price": 650,
+                        "ExpiryRaw": "",
+                        "close_price": "20.3000000"
+                    }
+                },
+                {
+                    "strike_price": 655,
+                    "call_option": {
+                        "token": "167164",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN655CE",
+                        "trading_symbol": "SBIN24JAN655CE",
+                        "display_name": "SBIN JAN 24 655 CE",
+                        "strike_price": 655,
+                        "ExpiryRaw": "",
+                        "close_price": "15.0500000"
+                    },
+                    "put_option": {
+                        "token": "167165",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24JAN655PE",
+                        "trading_symbol": "SBIN24JAN655PE",
+                        "display_name": "SBIN JAN 24 655 PE",
+                        "strike_price": 655,
+                        "ExpiryRaw": "",
+                        "close_price": "23.2000000"
+                    }
+                }
+            ]
+        },
+        {
+            "expiry_date": "29FEB24",
+            "strikes": [
+                {
+                    "strike_price": 630,
+                    "call_option": {
+                        "token": "172169",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB630CE",
+                        "trading_symbol": "SBIN24FEB630CE",
+                        "display_name": "SBIN FEB 24 630 CE",
+                        "strike_price": 630,
+                        "ExpiryRaw": "",
+                        "close_price": "12.1500000"
+                    },
+                    "put_option": {
+                        "token": "172170",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB630PE",
+                        "trading_symbol": "SBIN24FEB630PE",
+                        "display_name": "SBIN FEB 24 630 PE",
+                        "strike_price": 630,
+                        "ExpiryRaw": "",
+                        "close_price": "66.1500000"
+                    }
+                },
+                {
+                    "strike_price": 635,
+                    "call_option": {
+                        "token": "172171",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB635CE",
+                        "trading_symbol": "SBIN24FEB635CE",
+                        "display_name": "SBIN FEB 24 635 CE",
+                        "strike_price": 635,
+                        "ExpiryRaw": "",
+                        "close_price": "11.1000000"
+                    },
+                    "put_option": {
+                        "token": "172172",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB635PE",
+                        "trading_symbol": "SBIN24FEB635PE",
+                        "display_name": "SBIN FEB 24 635 PE",
+                        "strike_price": 635,
+                        "ExpiryRaw": "",
+                        "close_price": "69.9500000"
+                    }
+                },
+                {
+                    "strike_price": 640,
+                    "call_option": {
+                        "token": "172173",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB640CE",
+                        "trading_symbol": "SBIN24FEB640CE",
+                        "display_name": "SBIN FEB 24 640 CE",
+                        "strike_price": 640,
+                        "ExpiryRaw": "",
+                        "close_price": "35.0000000"
+                    },
+                    "put_option": {
+                        "token": "172174",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB640PE",
+                        "trading_symbol": "SBIN24FEB640PE",
+                        "display_name": "SBIN FEB 24 640 PE",
+                        "strike_price": 640,
+                        "ExpiryRaw": "",
+                        "close_price": "21.1000000"
+                    }
+                },
+                {
+                    "strike_price": 645,
+                    "call_option": {
+                        "token": "172175",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB645CE",
+                        "trading_symbol": "SBIN24FEB645CE",
+                        "display_name": "SBIN FEB 24 645 CE",
+                        "strike_price": 645,
+                        "ExpiryRaw": "",
+                        "close_price": "34.1000000"
+                    },
+                    "put_option": {
+                        "token": "172176",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB645PE",
+                        "trading_symbol": "SBIN24FEB645PE",
+                        "display_name": "SBIN FEB 24 645 PE",
+                        "strike_price": 645,
+                        "ExpiryRaw": "",
+                        "close_price": "77.8000000"
+                    }
+                },
+                {
+                    "strike_price": 650,
+                    "call_option": {
+                        "token": "172177",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB650CE",
+                        "trading_symbol": "SBIN24FEB650CE",
+                        "display_name": "SBIN FEB 24 650 CE",
+                        "strike_price": 650,
+                        "ExpiryRaw": "",
+                        "close_price": "29.5500000"
+                    },
+                    "put_option": {
+                        "token": "172178",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB650PE",
+                        "trading_symbol": "SBIN24FEB650PE",
+                        "display_name": "SBIN FEB 24 650 PE",
+                        "strike_price": 650,
+                        "ExpiryRaw": "",
+                        "close_price": "27.3000000"
+                    }
+                },
+                {
+                    "strike_price": 655,
+                    "call_option": {
+                        "token": "172179",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB655CE",
+                        "trading_symbol": "SBIN24FEB655CE",
+                        "display_name": "SBIN FEB 24 655 CE",
+                        "strike_price": 655,
+                        "ExpiryRaw": "",
+                        "close_price": "7.5000000"
+                    },
+                    "put_option": {
+                        "token": "172180",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24FEB655PE",
+                        "trading_symbol": "SBIN24FEB655PE",
+                        "display_name": "SBIN FEB 24 655 PE",
+                        "strike_price": 655,
+                        "ExpiryRaw": "",
+                        "close_price": "86.0000000"
+                    }
+                }
+            ]
+        },
+        {
+            "expiry_date": "28MAR24",
+            "strikes": [
+                {
+                    "strike_price": 630,
+                    "call_option": {
+                        "token": "193211",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR630CE",
+                        "trading_symbol": "SBIN24MAR630CE",
+                        "display_name": "SBIN MAR 24 630 CE",
+                        "strike_price": 630,
+                        "ExpiryRaw": "",
+                        "close_price": "53.9500000"
+                    },
+                    "put_option": {
+                        "token": "193212",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR630PE",
+                        "trading_symbol": "SBIN24MAR630PE",
+                        "display_name": "SBIN MAR 24 630 PE",
+                        "strike_price": 630,
+                        "ExpiryRaw": "",
+                        "close_price": "21.2000000"
+                    }
+                },
+                {
+                    "strike_price": 635,
+                    "call_option": {
+                        "token": "193213",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR635CE",
+                        "trading_symbol": "SBIN24MAR635CE",
+                        "display_name": "SBIN MAR 24 635 CE",
+                        "strike_price": 635,
+                        "ExpiryRaw": "",
+                        "close_price": "50.9500000"
+                    },
+                    "put_option": {
+                        "token": "193214",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR635PE",
+                        "trading_symbol": "SBIN24MAR635PE",
+                        "display_name": "SBIN MAR 24 635 PE",
+                        "strike_price": 635,
+                        "ExpiryRaw": "",
+                        "close_price": "23.1000000"
+                    }
+                },
+                {
+                    "strike_price": 640,
+                    "call_option": {
+                        "token": "193215",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR640CE",
+                        "trading_symbol": "SBIN24MAR640CE",
+                        "display_name": "SBIN MAR 24 640 CE",
+                        "strike_price": 640,
+                        "ExpiryRaw": "",
+                        "close_price": "48.0500000"
+                    },
+                    "put_option": {
+                        "token": "193216",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR640PE",
+                        "trading_symbol": "SBIN24MAR640PE",
+                        "display_name": "SBIN MAR 24 640 PE",
+                        "strike_price": 640,
+                        "ExpiryRaw": "",
+                        "close_price": "25.1500000"
+                    }
+                },
+                {
+                    "strike_price": 645,
+                    "call_option": {
+                        "token": "193217",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR645CE",
+                        "trading_symbol": "SBIN24MAR645CE",
+                        "display_name": "SBIN MAR 24 645 CE",
+                        "strike_price": 645,
+                        "ExpiryRaw": "",
+                        "close_price": "45.3000000"
+                    },
+                    "put_option": {
+                        "token": "193218",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR645PE",
+                        "trading_symbol": "SBIN24MAR645PE",
+                        "display_name": "SBIN MAR 24 645 PE",
+                        "strike_price": 645,
+                        "ExpiryRaw": "",
+                        "close_price": "27.3000000"
+                    }
+                },
+                {
+                    "strike_price": 650,
+                    "call_option": {
+                        "token": "193219",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR650CE",
+                        "trading_symbol": "SBIN24MAR650CE",
+                        "display_name": "SBIN MAR 24 650 CE",
+                        "strike_price": 650,
+                        "ExpiryRaw": "",
+                        "close_price": "42.6500000"
+                    },
+                    "put_option": {
+                        "token": "193220",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR650PE",
+                        "trading_symbol": "SBIN24MAR650PE",
+                        "display_name": "SBIN MAR 24 650 PE",
+                        "strike_price": 650,
+                        "ExpiryRaw": "",
+                        "close_price": "30.7500000"
+                    }
+                },
+                {
+                    "strike_price": 655,
+                    "call_option": {
+                        "token": "193221",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR655CE",
+                        "trading_symbol": "SBIN24MAR655CE",
+                        "display_name": "SBIN MAR 24 655 CE",
+                        "strike_price": 655,
+                        "ExpiryRaw": "",
+                        "close_price": "40.1000000"
+                    },
+                    "put_option": {
+                        "token": "193222",
+                        "exchange": "NFO",
+                        "company": "SBIN",
+                        "symbol": "SBIN24MAR655PE",
+                        "trading_symbol": "SBIN24MAR655PE",
+                        "display_name": "SBIN MAR 24 655 PE",
+                        "strike_price": 655,
+                        "ExpiryRaw": "",
+                        "close_price": "31.9000000"
+                    }
+                }
+            ]
+        }
+    ]
+}

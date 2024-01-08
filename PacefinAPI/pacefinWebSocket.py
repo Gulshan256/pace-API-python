@@ -87,7 +87,7 @@ class PacefinSocket(object):
             counter = counter + 1
             if counter > 5:
                 return False
-        # socket_connect(client_id, access_token, websocket_url)
+
 
     def subscribe_detailed_marketdata(self, detailedmarketdata_payload):
         subscription_pkt = [[detailedmarketdata_payload['exchangeCode'], detailedmarketdata_payload['instrumentToken']]]
@@ -206,17 +206,3 @@ class PacefinSocket(object):
         return data
 
 
-#------------------------------------------------
-#For testing
-#------------------------------------------------
-#
-#
-if __name__ == "__main__":
-    client_id = "HI0009"
-
-    
-    conn = PacefinSocket(client_id)
-    with open("access_token.txt", "r") as f:
-        access_token = f.read()
-    access_token = conn.set_access_token(access_token)
-    conn.run_socket()

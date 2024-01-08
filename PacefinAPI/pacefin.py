@@ -5,9 +5,13 @@ import requests
 from requests import get
 import re, uuid
 import socket
-import PacefinAPI.pacefin_exceptions as ex
+# import PacefinAPI.pacefin_exceptions as ex
+# from PacefinAPI import pacefin_exceptions as ex
+import pacefin_exceptions as ex
+
 import sys
 import websocket
+
 
 
 log=logging.getLogger(__name__)
@@ -177,7 +181,6 @@ class Pacefin(object):
        
         uri =self._routes[route].format(**params)
         url = urljoin(self.root, uri)
-        print(url)
 
         # Custom headers
         headers = self.requestHeaders()

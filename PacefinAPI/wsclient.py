@@ -60,8 +60,8 @@ def on_message(ws, message):
     mode = struct.unpack('>b', message[0:1])[0]
     if mode == 1:
         res = decodeDetailedMarketData(message)
-        # print("detailed market data")
-        # print(res)
+        print("detailed market data")
+        print(res)
         global detailed_marketdata_response
         global dtlmktdata_dict
         detailed_marketdata_response = res

@@ -115,18 +115,21 @@ if __name__ == '__main__':
     
     # data=obj.getFunds(clintId)
     # print(data)
+    
+
 
     # data=obj.getMarketdata("NSE","3045")   
     # print(data)
     
-    # data=obj.getLtp("NSE","3045")
-    # print(data)
+    ltp=obj.getLtp("NSE","3045")
+    print("ltp ",ltp)
 
     # data=obj.getClosePrice("NSE","3045")
     # print(data)
 
-    # #  websocket implementation
-    # ws=obj.connectSocket(token)
-
-
-
+    # data=obj.getOptionChain(3045,6,data["data"])
+    # print(data)
+    # # write into json file
+    # import json
+    # with open("optionchain.json","w") as f:
+    #     json.dump(data,f) 
