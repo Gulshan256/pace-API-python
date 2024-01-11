@@ -44,6 +44,15 @@ class ShortStraddle(Pacefin):
     #     atm_price = strikes[index]
     #     return atm_price
 
+    def find_atm_strike(self,call_strikes, put_strikes):
+        # Find the closest call and put strikes to the current stock price
+        current_price = self.fetch_stock_price()
+        print("current_price = ", current_price)
+        call_atm = min(call_strikes, key=lambda x: abs(x - current_price))
+        put_atm = min(put_strikes, key=lambda x: abs(x - current_price))
+
+        return call_atm, put_atm
+
     # def get_option_price(self, stock_price, option_type):
     #     # spread_from_atm = 1
     #     spread_from_atm = 0
@@ -76,13 +85,18 @@ r = 0.05  # Risk-free interest rate
 sigma = 0.2  # Volatility
 
 
+
+
 # Create an instance of ShortStraddleAlgo and execute the strategy
 algo = ShortStraddle(exchange,token,symbol, expiry_date, lots, strike_price, r, sigma)
 result=algo.execute_strategy()
 print(result)
 
+current_stock_price = 632.45
+call_strikes = [630, 640, 650]
+put_strikes = [620, 630, 640]
 
+atm_call, atm_put = algo.find_atm_strike( call_strikes, put_strikes)
 
-
-class Butterfly:
-    pass
+print("At-the-Money Call Strike:", atm_call)
+print("At-the-Money Put Strike:", atm_put)
