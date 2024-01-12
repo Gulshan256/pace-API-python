@@ -16,18 +16,32 @@ if __name__ == '__main__':
 	print(ws_status)
 
 	marketdata_payload= {'exchangeCode': 1, 'instrumentToken': 3045}
-	marketdata_payload_1= {'exchangeCode': 1, 'instrumentToken': 3499}
+	# marketdata_payload_1= {'exchangeCode': 1, 'instrumentToken': 3499}
 	snapquotedata_payload = {'exchangeCode': 1, 'instrumentToken': 3045}
-	conn.subscribe_detailed_marketdata(marketdata_payload,)
+	# conn.subscribe_detailed_marketdata(marketdata_payload,)
 	# conn.subscribe_detailed_marketdata(marketdata_payload_1,)
 	# conn.subscribe_snapquote_data(snapquotedata_payload,)
 
 
-	print("channels subscribed ....")
+	# print("channels subscribed ....")
+
+	# detailed_market_data = conn.read_detailed_marketdata()
+
+	# print("detailed market data", detailed_market_data)
+
+	conn.subscribe_multiple_detailed_marketdata([{'exchangeCode': 1, 'instrumentToken': 3499},{'exchangeCode': 1, 'instrumentToken': 3045}])
+
+	print("multiple channels subscribed ....")
+
+	detailed_market_data = conn.read_multiple_detailed_marketdata()
+
+	print("multiple detailed market data", detailed_market_data)
+
+	# unsubscribe multiple channels
+	conn.unsubscribe_multiple_detailed_marketdata([{'exchangeCode': 1, 'instrumentToken': 3499},{'exchangeCode': 1, 'instrumentToken': 3045}])
 
 
-	i = 0
-	detailed_market_data = conn.read_detailed_marketdata()
+
 	# while True:
 	# 	time.sleep(1)
 	# 	detailed_market_data = conn.read_detailed_marketdata()

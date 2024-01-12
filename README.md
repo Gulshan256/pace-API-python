@@ -187,12 +187,10 @@ print(ws_status)
 conn.subscribe_detailed_marketdata( {'exchangeCode': 1, 'instrumentToken': 3045})
 conn.subscribe_snapquote_data({'exchangeCode': 1, 'instrumentToken': 3045})
 
-print("channels subscribed ....")
 
-detailed_market_data = conn.read_detailed_marketdata()
-print(detailed_market_data)
-snapquote_data = conn.read_snapquote_data()
-print(detailed_market_data)
+detailed_market_data = conn.read_detailed_marketdata() # read detailed market data
+snapquote_data = conn.read_snapquote_data() # read snap quote data
+
 
 
 #  unsubscribe from channels
@@ -200,5 +198,13 @@ conn.unsubscribe_detailed_marketdata({'exchangeCode': 1, 'instrumentToken': 3045
 conn.unsubscribe_snapquote_data({'exchangeCode': 1, 'instrumentToken': 3045})
 
 
-```
+# subscribe multiple channels 
+conn.subscribe_multiple_detailed_marketdata([{'exchangeCode': 1, 'instrumentToken': 3045},{'exchangeCode': 1, 'instrumentToken': 3045}])
+detailed_market_data = conn.read_multiple_detailed_marketdata()
 
+# unsubscribe multiple channels
+conn.unsubscribe_multiple_detailed_marketdata([{'exchangeCode': 1, 'instrumentToken': 3045},{'exchangeCode': 1, 'instrumentToken': 3045}])
+
+
+
+```
